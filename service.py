@@ -1,9 +1,17 @@
 # Developed by Mirko J. Rodríguez mirko.rodriguezm@gmail.com
 #Reference: https://towardsdatascience.com/deploying-keras-models-using-tensorflow-serving-and-flask-508ba00f1037
-
+try:
+    from flask.ext.cors import CORS  # The typical way to import flask-cors
+except ImportError:
+    # Path hack allows examples to be run without installation.
+    import os
+    parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    os.sys.path.insert(0, parentdir) 
 #Import Flask
 from flask import Flask, request, jsonify, redirect
 from flask_cors import CORS
+from flask.ext.mandrill import Mandrill
+
 
 #Import Keras
 from keras.preprocessing import image
@@ -25,7 +33,14 @@ print ("Port recognized: ", port)
 
 #Initialize the application service
 app = Flask(__name__)
-cors = CORS(app, resources={r"/*": {"origins": "*"}})
+
+app.config['MANDRILL_API_KEY'] = '...'
+app.config['MANDRILL_DEFAULT_FROM']= '...'
+app.config['QOLD_SUPPORT_EMAIL']='...'
+app.config['CORS_HEADERS'] = 'Content-Type'
+
+mandrill = Mandrill(app)
+cors = CORS(app)
 
 global loaded_model, graph
 loaded_model, graph = cargarModelo()
@@ -40,6 +55,7 @@ def main_page():
 	return '¡Servicio REST activo!'
 
 @app.route('/model/verify/', methods=['GET','POST'])
+@cross_origin()
 def default():
     data = {"success": False}
     if request.method == "POST":
