@@ -25,7 +25,7 @@ print ("Port recognized: ", port)
 
 #Initialize the application service
 app = Flask(__name__)
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(app, resources={r"/model/*": {"origins": "*"}})
 
 global loaded_model, graph
 loaded_model, graph = cargarModelo()
