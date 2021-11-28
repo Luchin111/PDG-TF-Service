@@ -9,8 +9,7 @@ except ImportError:
     os.sys.path.insert(0, parentdir) 
 #Import Flask
 from flask import Flask, request, jsonify, redirect
-from flask_cors import CORS
-from flask.ext.mandrill import Mandrill
+from flask_cors import CORS, cross_origin
 
 
 #Import Keras
@@ -34,13 +33,9 @@ print ("Port recognized: ", port)
 #Initialize the application service
 app = Flask(__name__)
 
-app.config['MANDRILL_API_KEY'] = '...'
-app.config['MANDRILL_DEFAULT_FROM']= '...'
-app.config['QOLD_SUPPORT_EMAIL']='...'
+cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-mandrill = Mandrill(app)
-cors = CORS(app)
 
 global loaded_model, graph
 loaded_model, graph = cargarModelo()
