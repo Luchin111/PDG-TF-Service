@@ -46,6 +46,7 @@ def allowed_file(filename):
 
 #Define a route
 @app.route('/')
+@cross_origin()
 def main_page():
 	return '¡Servicio REST activo!'
 
