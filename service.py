@@ -46,7 +46,7 @@ def allowed_file(filename):
 def main_page():
 	return '¡Servicio REST activo!'
 
-@app.route('/')
+@app.route('/model/compare')
 @cross_origin()
 def main_page():
 	# Create a list to store the urls of the images
