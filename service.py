@@ -48,7 +48,7 @@ def main_page():
 
 @app.route('/model/compare')
 @cross_origin()
-def main_page():
+def compare():
 	# Create a list to store the urls of the images
     urls = ["https://iiif.lib.ncsu.edu/iiif/0052574/full/800,/0/default.jpg",
         "https://iiif.lib.ncsu.edu/iiif/0016007/full/800,/0/default.jpg",
