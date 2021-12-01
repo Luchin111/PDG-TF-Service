@@ -1,6 +1,6 @@
 # Developed by Mirko J. Rodríguez mirko.rodriguezm@gmail.com
 #Reference: https://towardsdatascience.com/deploying-keras-models-using-tensorflow-serving-and-flask-508ba00f1037
-import numpy as np
+
 import pandas as pd
 import cv2 as cv 
 from skimage import io
