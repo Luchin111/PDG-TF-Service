@@ -61,7 +61,7 @@ def compare():
             image = io.imread(url) 
             image_2 = cv.cvtColor(image, cv.COLOR_BGR2RGB)
         #--- take the absolute difference of the images ---
-        res = cv2.absdiff(image, image_2)
+        res = cv.absdiff(image, image_2)
 
         #--- convert the result to integer type ---
         res = res.astype(np.uint8)
