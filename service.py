@@ -68,6 +68,7 @@ def compare():
 
         #--- find percentage difference based on number of pixels that are not zero ---
         percentage = (np.count_nonzero(res) * 100)/ res.size
+        print("\porcentaje:",percentage)
 
     return 'ok'
 
