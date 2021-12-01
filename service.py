@@ -3,7 +3,6 @@
 import numpy as np
 import pandas as pd
 import cv2 as cv 
-from google.colab.patches import cv2_imshow # for image display
 from skimage import io
 from PIL import Image 
 import matplotlib.pylab as plt
@@ -60,9 +59,6 @@ def main_page():
     for url in urls:
         image = io.imread(url) 
         image_2 = cv.cvtColor(image, cv.COLOR_BGR2RGB)
-        final_frame = cv.hconcat((image, image_2))
-        cv2_imshow(final_frame)
-        print('\n')
     #--- take the absolute difference of the images ---
     res = cv2.absdiff(image, image_2)
 
