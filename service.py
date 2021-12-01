@@ -46,27 +46,28 @@ def allowed_file(filename):
 def main_page():
 	return '¡Servicio REST activo!'
 
-@app.route('/model/compare')
+@app.route('/model/compare', methods=['GET','POST'])
 @cross_origin()
 def compare():
+    if request.method == "POST":
 	# Create a list to store the urls of the images
-    urls = ["https://iiif.lib.ncsu.edu/iiif/0052574/full/800,/0/default.jpg",
-        "https://iiif.lib.ncsu.edu/iiif/0016007/full/800,/0/default.jpg",
-        "https://placekitten.com/800/571"]  
-    # Read and display the image
-    # loop over the image URLs, you could store several image urls in the list
+        urls = ["https://iiif.lib.ncsu.edu/iiif/0052574/full/800,/0/default.jpg",
+            "https://iiif.lib.ncsu.edu/iiif/0016007/full/800,/0/default.jpg",
+            "https://placekitten.com/800/571"]  
+        # Read and display the image
+        # loop over the image URLs, you could store several image urls in the list
 
-    for url in urls:
-        image = io.imread(url) 
-        image_2 = cv.cvtColor(image, cv.COLOR_BGR2RGB)
-    #--- take the absolute difference of the images ---
-    res = cv2.absdiff(image, image_2)
+        for url in urls:
+            image = io.imread(url) 
+            image_2 = cv.cvtColor(image, cv.COLOR_BGR2RGB)
+        #--- take the absolute difference of the images ---
+        res = cv2.absdiff(image, image_2)
 
-    #--- convert the result to integer type ---
-    res = res.astype(np.uint8)
+        #--- convert the result to integer type ---
+        res = res.astype(np.uint8)
 
-    #--- find percentage difference based on number of pixels that are not zero ---
-    percentage = (np.count_nonzero(res) * 100)/ res.size
+        #--- find percentage difference based on number of pixels that are not zero ---
+        percentage = (np.count_nonzero(res) * 100)/ res.size
 
     return percentage
 
