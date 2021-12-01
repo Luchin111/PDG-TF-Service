@@ -69,7 +69,7 @@ def compare():
         #--- find percentage difference based on number of pixels that are not zero ---
         percentage = (np.count_nonzero(res) * 100)/ res.size
 
-    return percentage
+    return 'ok'
 
 
 @app.route('/model/covid19/', methods=['GET','POST'])
