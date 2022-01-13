@@ -1,16 +1,9 @@
-# Developed by Luis H. Medina M. luisinmedina@gmail.com
+# Developed by Mirko J. Rodríguez mirko.rodriguezm@gmail.com
 #Reference: https://towardsdatascience.com/deploying-keras-models-using-tensorflow-serving-and-flask-508ba00f1037
-
-import pandas as pd
-import cv2 as cv 
-from skimage import io
-from PIL import Image 
-import matplotlib.pylab as plt
-
 
 #Import Flask
 from flask import Flask, request, jsonify, redirect
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 
 #Import Keras
 from keras.preprocessing import image
@@ -42,40 +35,10 @@ def allowed_file(filename):
 
 #Define a route
 @app.route('/')
-@cross_origin()
 def main_page():
 	return '¡Servicio REST activo!'
 
-@app.route('/model/compare', methods=['GET','POST'])
-@cross_origin()
-def compare():
-    if request.method == "POST":
-	# Create a list to store the urls of the images
-                # check if the post request has the file part
-        if 'file' and  'file2' not in request.files:
-            print('No file part')
-        file = request.files['file']
-        file2 = request.files['file2']
-        # if user does not select file, browser also submit a empty part without filename
-        if file.filename == '' or file.filename == '':
-            print('No selected files')
-        image = io.imread(file) 
-        image_2 = io.imread(file2) 
-        #--- take the absolute difference of the images ---
-        res = cv.absdiff(image, image_2)
-
-        #--- convert the result to integer type ---
-        res = res.astype(np.uint8)
-
-        #--- find percentage difference based on number of pixels that are not zero ---
-        percentage = (np.count_nonzero(res) * 100)/ res.size
-        print("\porcentaje:",percentage)
-
-    return 'ok'
-
-
-@app.route('/model/cancer/', methods=['GET','POST'])
-@cross_origin()
+@app.route('/model/covid19/', methods=['GET','POST'])
 def default():
     data = {"success": False}
     if request.method == "POST":
@@ -106,12 +69,12 @@ def default():
             	
 		# Resultados
             	prediction = 1 if (result >= 0.5) else 0
-            	CLASSES = ['Normal', 'Con Cancer']
+            	CLASSES = ['Normal', 'Covid19+']
 
             	ClassPred = CLASSES[prediction]
             	ClassProb = result
             	
-            	print("Predicción:", ClassPred)
+            	print("Pedicción:", ClassPred)
             	print("Prob: {:.2%}".format(ClassProb))
 
             	#Results as Json
