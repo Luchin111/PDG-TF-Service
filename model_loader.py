@@ -9,7 +9,7 @@ from keras.models import load_model
 def cargarModelo():
 
     FILENAME_MODEL_TO_LOAD = "cancer_model_full.h5"
-    MODEL_PATH = ""
+    MODEL_PATH = "."
 
     # Cargar la RNA desde disco
     loaded_model = load_model(MODEL_PATH + "/" + FILENAME_MODEL_TO_LOAD)
