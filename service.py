@@ -1,4 +1,4 @@
-# Developed by Mirko J. Rodríguez mirko.rodriguezm@gmail.com
+# Developed by Luis H. Medina M. luisinmedina@gmail.com
 #Reference: https://towardsdatascience.com/deploying-keras-models-using-tensorflow-serving-and-flask-508ba00f1037
 
 import pandas as pd
@@ -51,15 +51,16 @@ def main_page():
 def compare():
     if request.method == "POST":
 	# Create a list to store the urls of the images
-        urls = ["https://iiif.lib.ncsu.edu/iiif/0052574/full/800,/0/default.jpg",
-            "https://iiif.lib.ncsu.edu/iiif/0016007/full/800,/0/default.jpg",
-            "https://placekitten.com/800/571"]  
-        # Read and display the image
-        # loop over the image URLs, you could store several image urls in the list
-
-        for url in urls:
-            image = io.imread(url) 
-            image_2 = cv.cvtColor(image, cv.COLOR_BGR2RGB)
+                # check if the post request has the file part
+        if 'file' and  'file2' not in request.files:
+            print('No file part')
+        file = request.files['file']
+        file2 = request.files['file2']
+        # if user does not select file, browser also submit a empty part without filename
+        if file.filename == '' or file.filename == '':
+            print('No selected files')
+        image = io.imread(file) 
+        image_2 = io.imread(file2) 
         #--- take the absolute difference of the images ---
         res = cv.absdiff(image, image_2)
 
@@ -73,7 +74,7 @@ def compare():
     return 'ok'
 
 
-@app.route('/model/covid19/', methods=['GET','POST'])
+@app.route('/model/cancer/', methods=['GET','POST'])
 @cross_origin()
 def default():
     data = {"success": False}
@@ -110,7 +111,7 @@ def default():
             	ClassPred = CLASSES[prediction]
             	ClassProb = result
             	
-            	print("Pedicción:", ClassPred)
+            	print("Predicción:", ClassPred)
             	print("Prob: {:.2%}".format(ClassProb))
 
             	#Results as Json
