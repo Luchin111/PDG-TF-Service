@@ -3,7 +3,7 @@
 
 #Import Flask
 from flask import Flask, request, jsonify, redirect
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 #Import Keras
 from keras.preprocessing import image
