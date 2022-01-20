@@ -63,9 +63,11 @@ def compare():
         img = Image.open(request.files['fileA'])
         img = np.array(img)
         img = cv.resize(img,(224,224))
+        img = cv.cvtColor(np.array(img), cv.COLOR_BGR2RGB)
         img2 = Image.open(request.files['fileB'])
         img2 = np.array(img2)
         img2 = cv.resize(img,(224,224))
+        img2 = cv.cvtColor(np.array(img2), cv.COLOR_BGR2RGB)
         # if user does not select file, browser also submit a empty part without filename
         if fileA.filename == '' or fileB.filename == '':
             print('No selected files')
