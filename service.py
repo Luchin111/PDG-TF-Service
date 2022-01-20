@@ -61,8 +61,8 @@ def compare():
         fileB = request.files['fileB']
         
         # load the two input images
-        imageA = cv.imread(fileA.read())
-        imageB = cv.imread(fileB.read())
+        imageA = cv.imread(str(fileA.read()))
+        imageB = cv.imread(str(fileB.read()))
         # convert the images to grayscale
         grayA = cv.cvtColor(imageA, cv.COLOR_BGR2GRAY)
         grayB = cv.cvtColor(imageB, cv.COLOR_BGR2GRAY)
