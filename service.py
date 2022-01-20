@@ -1,5 +1,12 @@
-# Developed by Mirko J. Rodríguez mirko.rodriguezm@gmail.com
+# Developed by Luis H. Medina M. luisinmedina@gmail.com
 #Reference: https://towardsdatascience.com/deploying-keras-models-using-tensorflow-serving-and-flask-508ba00f1037
+
+import pandas as pd
+import cv2 as cv 
+from skimage import io
+from PIL import Image 
+import matplotlib.pylab as plt
+
 
 #Import Flask
 from flask import Flask, request, jsonify, redirect
@@ -35,10 +42,42 @@ def allowed_file(filename):
 
 #Define a route
 @app.route('/')
+@cross_origin()
 def main_page():
 	return '¡Servicio REST activo!'
 
-@app.route('/model/covid19/', methods=['GET','POST'])
+@app.route('/model/compare', methods=['GET','POST'])
+@cross_origin()
+def compare():
+    if request.method == "POST":
+	# Create a list to store the urls of the images
+                # check if the post request has the file part
+        if 'file' not in request.files:
+            print('No file part')
+        if 'file2' not in request.files:
+            print('No file2 part')
+        file = request.files['file']
+        file2 = request.files['file2']
+        # if user does not select file, browser also submit a empty part without filename
+        if file.filename == '' or file.filename == '':
+            print('No selected files')
+        image = io.imread(file) 
+        image_2 = io.imread(file2) 
+        #--- take the absolute difference of the images ---
+        res = cv.absdiff(image, image_2)
+
+        #--- convert the result to integer type ---
+        res = res.astype(np.uint8)
+
+        #--- find percentage difference based on number of pixels that are not zero ---
+        percentage = (np.count_nonzero(res) * 100)/ res.size
+        print("\porcentaje:",percentage)
+
+    return 'ok'
+
+
+@app.route('/model/cancer/', methods=['GET','POST'])
+@cross_origin()
 def default():
     data = {"success": False}
     if request.method == "POST":
@@ -69,12 +108,12 @@ def default():
             	
 		# Resultados
             	prediction = 1 if (result >= 0.5) else 0
-            	CLASSES = ['Normal', 'Covid19+']
+            	CLASSES = ['Normal', 'Con Cancer']
 
             	ClassPred = CLASSES[prediction]
             	ClassProb = result
             	
-            	print("Pedicción:", ClassPred)
+            	print("Predicción:", ClassPred)
             	print("Prob: {:.2%}".format(ClassProb))
 
             	#Results as Json
@@ -88,4 +127,4 @@ def default():
     return jsonify(data)
 
 # Run de application
-app.run(host='0.0.0.0',port=port, threaded=False)
+app.run(host='0.0.0.0',port=port, threaded=False)/home/luis_medina_medina0803/model/cancer_model_full.h5
