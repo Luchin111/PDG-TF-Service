@@ -64,9 +64,10 @@ def compare():
 
         print("fileA ",fileA.filename)
         print("fileB ",fileB.filename)
-
-        image = io.imread(fileA) 
-        image_2 = io.imread(fileB) 
+        a = io.Image(fileA)
+        b = io.Image(fileB)
+        image = io.imread(a) 
+        image_2 = io.imread(b) 
         #--- take the absolute difference of the images ---
         res = cv.absdiff(image, image_2)
 
