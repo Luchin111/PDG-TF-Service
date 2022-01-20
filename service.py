@@ -68,10 +68,8 @@ def compare():
         print("fileA ",fileA.filename)
         print("fileB ",fileB.filename)
         #--- take the absolute difference of the images ---
-        file_data1 = fileA.read().decode("latin-1")
-        file_data2 = fileB.read().decode("latin-1")
-        img = cv.imread(file_data1)
-        img2 = cv.imread(file_data2)
+        img = cv.imread(fileA)
+        img2 = cv.imread(fileB)
         res = cv.absdiff(img, img2)
         print("\dif:",res)
         #--- convert the result to integer type ---
