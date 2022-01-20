@@ -52,17 +52,17 @@ def compare():
     if request.method == "POST":
 	# Create a list to store the urls of the images
                 # check if the post request has the file part
-        if 'file' not in request.files:
+        if 'fileA' not in request.files:
             print('No file part')
-        if 'file2' not in request.files:
+        if 'fileB' not in request.files:
             print('No file2 part')
-        file = request.files['file']
-        file2 = request.files['file2']
+        fileA = request.files['fileA']
+        fileB = request.files['fileB']
         # if user does not select file, browser also submit a empty part without filename
-        if file.filename == '' or file.filename == '':
+        if fileA.filename == '' or fileB.filename == '':
             print('No selected files')
-        image = io.imread(file) 
-        image_2 = io.imread(file2) 
+        image = io.imread(fileA) 
+        image_2 = io.imread(fileB) 
         #--- take the absolute difference of the images ---
         res = cv.absdiff(image, image_2)
 
