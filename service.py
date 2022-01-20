@@ -64,28 +64,7 @@ def compare():
         if fileA.filename == '' or fileB.filename == '':
             print('No selected files')
 
-        if fileA and allowed_file(fileA.filename):
-            filename = secure_filename(fileA.filename)
-            fileA.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-            #loading image
-            filename = UPLOAD_FOLDER + '/' + filename
-            print("\nfilename:",filename)
-
-            image_to_predict1 = image.load_img(filename, target_size=(224, 224))
-            images = Image.open(image_to_predict1)
-
-        if fileB and allowed_file(fileB.filename):
-            filename = secure_filename(fileB.filename)
-            fileB.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-            #loading image
-            filename = UPLOAD_FOLDER + '/' + filename
-            print("\nfilename:",filename)
-
-            image_to_predict2 = image.load_img(filename, target_size=(224, 224))
-            images2 = Image.open(image_to_predict2)
-
+       
         print("fileA ",fileA.filename)
         print("fileB ",fileB.filename)
         #--- take the absolute difference of the images ---
