@@ -61,8 +61,8 @@ def compare():
         fileB = request.files['fileB']
         
         # convert the images to grayscale
-        grayA = cv.cvtColor(fileA, cv.COLOR_BGR2GRAY)
-        grayB = cv.cvtColor(fileB, cv.COLOR_BGR2GRAY)
+        grayA = cv.cvtColor(np.array(fileA), cv.COLOR_BGR2GRAY)
+        grayB = cv.cvtColor(np.array(fileB), cv.COLOR_BGR2GRAY)
         
         # if user does not select file, browser also submit a empty part without filename
         if fileA.filename == '' or fileB.filename == '':
