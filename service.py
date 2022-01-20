@@ -60,6 +60,7 @@ def compare():
         fileA = request.files['fileA']
         fileB = request.files['fileB']
         
+        #loading images
         filename = secure_filename(fileA.filename)
         fileA.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
@@ -69,12 +70,10 @@ def compare():
         filename2 = secure_filename(fileB.filename)
         fileB.save(os.path.join(app.config['UPLOAD_FOLDER'], filename2))
 
-        filename2 = UPLOAD_FOLDER + '/' + filename
+        filename2 = UPLOAD_FOLDER + '/' + filename2
         print("\nfilename2:",filename2)
 
-            #loading image
-        filename = UPLOAD_FOLDER + '/' + filename
-        print("\nfilename:",filename)
+       
         
         # if user does not select file, browser also submit a empty part without filename
         if fileA.filename == '' or fileB.filename == '':
@@ -83,9 +82,12 @@ def compare():
        
         print("fileA ",fileA.filename)
         print("fileB ",fileB.filename)
+
+        img = cv.imread(filename)
+        img2 = cv.imread(filename2)
         #--- take the absolute difference of the images ---
-        #res = cv.absdiff(imageA, imageB)
-        #print("\dif:",res)
+        res = cv.absdiff(img, img2)
+        print("\dif:",res)
 
         #--- convert the result to integer type ---
         #res = res.astype(np.uint8)
@@ -131,7 +133,7 @@ def default():
             	result = loaded_model.predict(test_image)[0][0]
             	# print(result)
             	
-		# Resultados
+		    # Resultados
             	prediction = 1 if (result >= 0.5) else 0
             	CLASSES = ['Normal', 'Con Cancer']
 
