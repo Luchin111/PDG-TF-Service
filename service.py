@@ -71,6 +71,7 @@ def compare():
             print("\nfilename:",filename)
 
             image_to_predict1 = image.load_img(filename, target_size=(224, 224))
+            images = Image.open(image_to_predict1)
 
         if fileB and allowed_file(fileB.filename):
             filename = secure_filename(fileB.filename)
@@ -81,11 +82,12 @@ def compare():
             print("\nfilename:",filename)
 
             image_to_predict2 = image.load_img(filename, target_size=(224, 224))
+            images2 = Image.open(image_to_predict2)
 
         print("fileA ",fileA.filename)
         print("fileB ",fileB.filename)
         #--- take the absolute difference of the images ---
-        res = cv.absdiff(image_to_predict1, image_to_predict2)
+        res = cv.absdiff(images, images2)
 
         #--- convert the result to integer type ---
         res = res.astype(np.uint8)
