@@ -60,6 +60,10 @@ def compare():
             print('No file2 part')
         fileA = request.files['fileA']
         fileB = request.files['fileB']
+        img = Image.open(request.files['fileA'])
+        img = np.array(img)
+        img2 = Image.open(request.files['fileB'])
+        img2 = np.array(img2)
         # if user does not select file, browser also submit a empty part without filename
         if fileA.filename == '' or fileB.filename == '':
             print('No selected files')
@@ -68,8 +72,6 @@ def compare():
         print("fileA ",fileA.filename)
         print("fileB ",fileB.filename)
         #--- take the absolute difference of the images ---
-        img = cv.imread(fileA.read())
-        img2 = cv.imread(fileB.read())
         res = cv.absdiff(img, img2)
         print("\dif:",res)
         #--- convert the result to integer type ---
