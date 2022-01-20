@@ -61,6 +61,10 @@ def compare():
         # if user does not select file, browser also submit a empty part without filename
         if fileA.filename == '' or fileB.filename == '':
             print('No selected files')
+
+        print("fileA ",fileA.filename)
+        print("fileB ",fileB.filename)
+
         image = io.imread(fileA) 
         image_2 = io.imread(fileB) 
         #--- take the absolute difference of the images ---
