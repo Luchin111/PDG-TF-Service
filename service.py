@@ -84,13 +84,10 @@ def compare():
         print("fileB ",fileB.filename)
 
         imagen = image.load_img(filename, target_size=(224, 224))
-        imageA =  cv.cvtColor(imagen, cv.COLOR_BGR2RGB)
-
-        imagen = image.load_img(filename2, target_size=(224, 224))
-        imageB = cv.cvtColor(imagen, cv.COLOR_BGR2RGB)
+        imagen2 = image.load_img(filename2, target_size=(224, 224))
         
         #--- take the absolute difference of the images ---
-        res = cv.absdiff(imageA, imageB)
+        res = cv.absdiff(imagen, imagen2)
         print("\dif:",res)
 
         #--- convert the result to integer type ---
