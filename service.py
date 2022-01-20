@@ -83,10 +83,14 @@ def compare():
         print("fileA ",fileA.filename)
         print("fileB ",fileB.filename)
 
-        img = cv.imread(filename)
-        img2 = cv.imread(filename2)
+        image = io.imread(filename) 
+        imageA = cv.cvtColor(image, cv.COLOR_BGR2RGB)
+
+        image = io.imread(filename2) 
+        imageB = cv.cvtColor(image, cv.COLOR_BGR2RGB)
+        
         #--- take the absolute difference of the images ---
-        res = cv.absdiff(img, img2)
+        res = cv.absdiff(imageA, imageB)
         print("\dif:",res)
 
         #--- convert the result to integer type ---
