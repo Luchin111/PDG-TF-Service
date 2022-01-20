@@ -83,8 +83,8 @@ def compare():
         print("fileA ",fileA.filename)
         print("fileB ",fileB.filename)
 
-        imagen = image.load_img(filename, target_size=(224, 224))
-        imagen2 = image.load_img(filename2, target_size=(224, 224))
+        imagen = cv::UMat image.load_img(filename, target_size=(224, 224))
+        imagen2 = cv::UMat image.load_img(filename2, target_size=(224, 224))
         
         #--- take the absolute difference of the images ---
         res = cv.absdiff(imagen, imagen2)
