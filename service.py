@@ -3,6 +3,8 @@
 
 import pandas as pd
 import cv2  as cv
+import argparse
+import imutils
 from skimage import io
 from PIL import Image 
 import matplotlib.pylab as plt
@@ -87,6 +89,10 @@ def compare():
         print("fileA ",fileA.filename)
         print("fileB ",fileB.filename)
         #--- take the absolute difference of the images ---
+
+        (score, diff) = compare_ssim(fileA, fileB, full=True)
+        diff = (diff).astype("uint8")
+        print("SSIM: {}".format(score))
         res = cv.absdiff(images, images2)
 
         #--- convert the result to integer type ---
