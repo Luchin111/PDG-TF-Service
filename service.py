@@ -72,8 +72,8 @@ def compare():
 
             image_to_predict = image.load_img(filename, target_size=(224, 224))
             test_image1 = image.img_to_array(image_to_predict)
-            test_image1 = np.expand_dims(test_image, axis = 0)
-            test_image1 = test_image.astype('float32')
+            test_image1 = np.expand_dims(test_image1, axis = 0)
+            test_image1 = test_image1.astype('float32')
             test_image1 /= 255
 
         if fileB and allowed_file(fileB.filename):
@@ -86,8 +86,8 @@ def compare():
 
             image_to_predict = image.load_img(filename, target_size=(224, 224))
             test_image2 = image.img_to_array(image_to_predict)
-            test_image2 = np.expand_dims(test_image, axis = 0)
-            test_image2 = test_image.astype('float32')
+            test_image2 = np.expand_dims(test_image2, axis = 0)
+            test_image2 = test_image2.astype('float32')
             test_image2 /= 255
 
         print("fileA ",fileA.filename)
