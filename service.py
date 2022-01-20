@@ -46,7 +46,7 @@ def allowed_file(filename):
 def main_page():
 	return '¡Servicio REST activo!'
 
-@app.route('/model/compare', methods=['GET','POST'])
+@app.route('/model/compare/', methods=['GET','POST'])
 @cross_origin()
 def compare():
     if request.method == "POST":
