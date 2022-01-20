@@ -69,11 +69,8 @@ def compare():
         print("fileB ",fileB.filename)
         #--- take the absolute difference of the images ---
 
-        (score, diff) = compare_ssim(fileA, fileB, full=True)
-        diff = (diff).astype("uint8")
-        print("SSIM: {}".format(score))
-        res = cv.absdiff(images, images2)
-
+        res = cv.absdiff(fileA, fileB)
+        print("\dif:",res)
         #--- convert the result to integer type ---
         res = res.astype(np.uint8)
 
