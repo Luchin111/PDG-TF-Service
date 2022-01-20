@@ -3,8 +3,7 @@
 
 import pandas as pd
 import cv2  as cv
-import argparse
-import imutils
+from skimage.metrics import structural_similarity as compare_ssim
 from skimage import io
 from PIL import Image 
 import matplotlib.pylab as plt
@@ -60,21 +59,14 @@ def compare():
             print('No file2 part')
         fileA = request.files['fileA']
         fileB = request.files['fileB']
-        img = Image.open(request.files['fileA'])
-        img = np.array(img)
-        img = cv.resize(img,(224,224))
-        img = cv.cvtColor(np.array(img), cv.COLOR_BGR2RGB)
-
-        npimg = np.fromfile(fileA, np.uint8)
-        file = cv.imdecode(npimg, cv.IMREAD_COLOR)
-
-        img2 = Image.open(request.files['fileB'])
-        img2 = np.array(img2)
-        img2 = cv.resize(img,(224,224))
-        img2 = cv.cvtColor(np.array(img2), cv.COLOR_BGR2RGB)
         
-        npimg2 = np.fromfile(fileB, np.uint8)
-        file2 = cv.imdecode(npimg2, cv.IMREAD_COLOR)
+        # load the two input images
+        imageA = cv.imread(fileA)
+        imageB = cv.imread(fileB)
+        # convert the images to grayscale
+        grayA = cv.cvtColor(imageA, cv.COLOR_BGR2GRAY)
+        grayB = cv.cvtColor(imageB, cv.COLOR_BGR2GRAY)
+        
         # if user does not select file, browser also submit a empty part without filename
         if fileA.filename == '' or fileB.filename == '':
             print('No selected files')
@@ -83,23 +75,24 @@ def compare():
         print("fileA ",fileA.filename)
         print("fileB ",fileB.filename)
         #--- take the absolute difference of the images ---
-        res = cv.absdiff(img, img2)
-        print("\dif:",res)
+        #res = cv.absdiff(imageA, imageB)
+        #print("\dif:",res)
+        (score, diff) = compare_ssim(grayA, grayB, full=True)
+        diff = (diff * 255).astype("uint8")
+        print("SSIM: {}".format(score))
 
-        res2 = cv.absdiff(file, file2)
-        print("\dif2:",res2)
         #--- convert the result to integer type ---
-        res = res.astype(np.uint8)
+        #res = res.astype(np.uint8)
 
-        res2 = res2.astype(np.uint8)
+        #res2 = res2.astype(np.uint8)
 
         #--- find percentage difference based on number of pixels that are not zero ---
-        percentage = (np.count_nonzero(res) * 100)/ res.size
-        percentage2 = (np.count_nonzero(res2) * 100)/ res.size
-        print("\porcentaje:",percentage)
-        print("\porcentaje2:",percentage2)
+        #percentage = (np.count_nonzero(res) * 100)/ res.size
+        #percentage2 = (np.count_nonzero(res2) * 100)/ res.size
+        #print("\porcentaje:",percentage)
+        #print("\porcentaje2:",percentage2)
 
-    return 'ok '+percentage
+    return 'ok '
 
 
 @app.route('/model/cancer/', methods=['GET','POST'])
