@@ -73,7 +73,7 @@ def compare():
         percentage = (np.count_nonzero(res) * 100)/ res.size
         print("\porcentaje:",percentage)
 
-    return 'ok'
+    return 'ok '+percentage
 
 
 @app.route('/model/cancer/', methods=['GET','POST'])
