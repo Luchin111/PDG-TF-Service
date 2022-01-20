@@ -60,9 +60,21 @@ def compare():
         fileA = request.files['fileA']
         fileB = request.files['fileB']
         
-        # convert the images to grayscale
-        grayA = cv.cvtColor(np.array(fileA), cv.COLOR_BGR2GRAY)
-        grayB = cv.cvtColor(np.array(fileB), cv.COLOR_BGR2GRAY)
+        filename = secure_filename(fileA.filename)
+        fileA.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        filename = UPLOAD_FOLDER + '/' + filename
+        print("\nfilename:",filename)
+
+        filename2 = secure_filename(fileB.filename)
+        fileB.save(os.path.join(app.config['UPLOAD_FOLDER'], filename2))
+
+        filename2 = UPLOAD_FOLDER + '/' + filename
+        print("\nfilename2:",filename2)
+
+            #loading image
+        filename = UPLOAD_FOLDER + '/' + filename
+        print("\nfilename:",filename)
         
         # if user does not select file, browser also submit a empty part without filename
         if fileA.filename == '' or fileB.filename == '':
@@ -74,9 +86,6 @@ def compare():
         #--- take the absolute difference of the images ---
         #res = cv.absdiff(imageA, imageB)
         #print("\dif:",res)
-        (score, diff) = compare_ssim(grayA, grayB, full=True)
-        diff = (diff * 255).astype("uint8")
-        print("SSIM: {}".format(score))
 
         #--- convert the result to integer type ---
         #res = res.astype(np.uint8)
