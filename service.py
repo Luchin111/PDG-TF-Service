@@ -64,10 +64,17 @@ def compare():
         img = np.array(img)
         img = cv.resize(img,(224,224))
         img = cv.cvtColor(np.array(img), cv.COLOR_BGR2RGB)
+
+        npimg = np.fromfile(fileA, np.uint8)
+        file = cv.imdecode(npimg, cv.IMREAD_COLOR)
+
         img2 = Image.open(request.files['fileB'])
         img2 = np.array(img2)
         img2 = cv.resize(img,(224,224))
         img2 = cv.cvtColor(np.array(img2), cv.COLOR_BGR2RGB)
+        
+        npimg2 = np.fromfile(fileB, np.uint8)
+        file2 = cv.imdecode(npimg2, cv.IMREAD_COLOR)
         # if user does not select file, browser also submit a empty part without filename
         if fileA.filename == '' or fileB.filename == '':
             print('No selected files')
@@ -78,12 +85,19 @@ def compare():
         #--- take the absolute difference of the images ---
         res = cv.absdiff(img, img2)
         print("\dif:",res)
+
+        res2 = cv.absdiff(file, file2)
+        print("\dif2:",res2)
         #--- convert the result to integer type ---
         res = res.astype(np.uint8)
 
+        res2 = res2.astype(np.uint8)
+
         #--- find percentage difference based on number of pixels that are not zero ---
         percentage = (np.count_nonzero(res) * 100)/ res.size
+        percentage2 = (np.count_nonzero(res2) * 100)/ res.size
         print("\porcentaje:",percentage)
+        print("\porcentaje2:",percentage2)
 
     return 'ok '+percentage
 
