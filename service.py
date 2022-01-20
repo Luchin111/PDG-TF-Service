@@ -2,7 +2,7 @@
 #Reference: https://towardsdatascience.com/deploying-keras-models-using-tensorflow-serving-and-flask-508ba00f1037
 
 import pandas as pd
-import cv2  
+import cv2  as cv
 from skimage import io
 from PIL import Image 
 import matplotlib.pylab as plt
@@ -62,12 +62,38 @@ def compare():
         if fileA.filename == '' or fileB.filename == '':
             print('No selected files')
 
+        if fileA and allowed_file(fileA.filename):
+            filename = secure_filename(fileA.filename)
+            fileA.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+            #loading image
+            filename = UPLOAD_FOLDER + '/' + filename
+            print("\nfilename:",filename)
+
+            image_to_predict = image.load_img(filename, target_size=(224, 224))
+            test_image1 = image.img_to_array(image_to_predict)
+            test_image1 = np.expand_dims(test_image, axis = 0)
+            test_image1 = test_image.astype('float32')
+            test_image1 /= 255
+
+        if fileB and allowed_file(fileB.filename):
+            filename = secure_filename(fileB.filename)
+            fileB.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+            #loading image
+            filename = UPLOAD_FOLDER + '/' + filename
+            print("\nfilename:",filename)
+
+            image_to_predict = image.load_img(filename, target_size=(224, 224))
+            test_image2 = image.img_to_array(image_to_predict)
+            test_image2 = np.expand_dims(test_image, axis = 0)
+            test_image2 = test_image.astype('float32')
+            test_image2 /= 255
+
         print("fileA ",fileA.filename)
         print("fileB ",fileB.filename)
-        image = image_from_buffer(fileA)
-        image_2 = image_from_buffer(fileB)
         #--- take the absolute difference of the images ---
-        res = cv2.absdiff(image, image_2)
+        res = cv.absdiff(test_image1, test_image2)
 
         #--- convert the result to integer type ---
         res = res.astype(np.uint8)
@@ -130,17 +156,7 @@ def default():
     return jsonify(data)
 
 
-def image_from_buffer(file_buffer):
-    '''
-    If we don't save the file locally and just want to open
-    a POST'd file. This is what we use.
-    '''
-    bytes_as_np_array = np.frombuffer(buffer.read(), dtype=np.uint8)
-    flag = 1
-    # flag = 1 == cv2.IMREAD_COLOR
-    # https://docs.opencv.org/4.2.0/d4/da8/group__imgcodecs.html
-    frame = cv2.imdecode(bytes_as_np_array, flag)
-    return frame
+
 
 # Run de application
 app.run(host='0.0.0.0',port=port, threaded=False)/home/luis_medina_medina0803/model/cancer_model_full.h5
