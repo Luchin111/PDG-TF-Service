@@ -74,7 +74,6 @@ def compare():
             test_image1 = image.img_to_array(image_to_predict)
             test_image1 = np.expand_dims(test_image1, axis = 0)
             test_image1 = test_image1.astype('str')
-            test_image1 /= 255
 
         if fileB and allowed_file(fileB.filename):
             filename = secure_filename(fileB.filename)
@@ -88,7 +87,6 @@ def compare():
             test_image2 = image.img_to_array(image_to_predict)
             test_image2 = np.expand_dims(test_image2, axis = 0)
             test_image2 = test_image2.astype('str')
-            test_image2 /= 255
 
         print("fileA ",fileA.filename)
         print("fileB ",fileB.filename)
