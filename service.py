@@ -88,8 +88,8 @@ def compare():
         print("\IMG :",img1)
         print("\IMG2 :",img2)
 
-        difference = cv.subtract(img1, img2)
-        print("\subs : ",difference)
+        diffImage = abs(img1-img2)
+        print("\diff : ",diffImage)
         #--- take the absolute difference of the images ---
         res = cv.absdiff(img1, img2)
 
