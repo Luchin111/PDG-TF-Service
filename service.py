@@ -92,8 +92,16 @@ def compare():
         test_image = image.img_to_array(image_to_predict)
         test_image = np.expand_dims(test_image, axis = 0)
 
-        res = cv.absdiff(test_image, test_image)
-        print("\res :",res)
+        image_to_predict2 = image.load_img(filename2, target_size=(224, 224))
+        test_image2 = image.img_to_array(image_to_predict2)
+        test_image2 = np.expand_dims(test_image2, axis = 0)
+
+        res = cv.absdiff(test_image, test_image2)
+        print("\ res :",res)
+
+        res = res.astype(np.uint8)
+        percentage = (np.count_nonzero(res) * 100)/ res.size
+        print("\ percentage :",percentage)
 
     return 'ok '
 
