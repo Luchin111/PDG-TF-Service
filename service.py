@@ -3,7 +3,6 @@
 
 import pandas as pd
 import cv2  as cv
-import imutiimls 
 from skimage.metrics import structural_similarity as ssim
 from skimage import io
 from PIL import Image 
@@ -84,14 +83,19 @@ def compare():
         print("fileA ",fileA.filename)
         print("fileB ",fileB.filename)
 
-        original = cv.imread("1.png")
-        new = cv.imread("2.png")
-        original = imutils.resize(filename, height = 600)
-        new = imutils.resize(filename2, height = 600)
+        img1 = cv.imread(filename, 0)
+        img2 = cv.imread(filename2, 0)
 
-        diff = original.copy()
-        res = cv.absdiff(original, new, diff)
-        print("\dif: ",res)
+        #--- take the absolute difference of the images ---
+        res = cv2.absdiff(img1, img2)
+
+        #--- convert the result to integer type ---
+        res = res.astype(np.uint8)
+
+        #--- find percentage difference based on number of pixels that are not zero ---
+        percentage = (numpy.count_nonzero(res) * 100)/ res.size
+
+        print("\dif:",percentage)
         #imagen = image.load_img(filename, target_size=(224, 224))
         #test_imageA = image.img_to_array(imagen)
         #test_imageA = np.expand_dims(test_imageA, axis = 0)
