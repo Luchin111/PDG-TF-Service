@@ -85,7 +85,7 @@ def compare():
 
         img1 = cv.imread(filename, 0)
         img2 = cv.imread(filename2, 0)
-
+        print("\IMG :",img1)
         #--- take the absolute difference of the images ---
         res = cv.absdiff(img1, img2)
 
