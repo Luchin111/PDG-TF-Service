@@ -87,13 +87,13 @@ def compare():
         img2 = cv.imread(filename2, 0)
 
         #--- take the absolute difference of the images ---
-        res = cv2.absdiff(img1, img2)
+        res = cv.absdiff(img1, img2)
 
         #--- convert the result to integer type ---
         res = res.astype(np.uint8)
 
         #--- find percentage difference based on number of pixels that are not zero ---
-        percentage = (numpy.count_nonzero(res) * 100)/ res.size
+        percentage = (np.count_nonzero(res) * 100)/ res.size
 
         print("\dif:",percentage)
         #imagen = image.load_img(filename, target_size=(224, 224))
