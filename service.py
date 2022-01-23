@@ -93,7 +93,7 @@ def compare():
         test_imageB = np.expand_dims(test_imageB, axis = 0)
         test_imageB = test_imageB.astype('float32')
         test_imageB /= 255
-        s = ssim(test_imageA, test_imageB)
+        s = ssim(imagen, imagen2)
         print("\dif: ",s)
         #--- take the absolute difference of the images ---
         #res = cv.absdiff(imagen, imagen2)
