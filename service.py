@@ -3,7 +3,7 @@
 
 import pandas as pd
 import cv2  as cv
-from skimage.metrics import structural_similarity as compare_ssim
+from skimage.metrics import structural_similarity as ssim
 from skimage import io
 from PIL import Image 
 import matplotlib.pylab as plt
@@ -84,11 +84,20 @@ def compare():
         print("fileB ",fileB.filename)
 
         imagen = image.load_img(filename, target_size=(224, 224))
+        test_imageA = image.img_to_array(imagen)
+        test_imageA = np.expand_dims(test_imageA, axis = 0)
+        test_imageA = test_imageA.astype('float32')
+        test_imageA /= 255
         imagen2 = image.load_img(filename2, target_size=(224, 224))
-        
+        test_imageB = image.img_to_array(imagen2)
+        test_imageB = np.expand_dims(test_imageB, axis = 0)
+        test_imageB = test_imageB.astype('float32')
+        test_imageB /= 255
+        s = ssim(test_imageA, test_imageB)
+        print("\dif: ",s)
         #--- take the absolute difference of the images ---
-        res = cv.absdiff(imagen, imagen2)
-        print("\dif:",res)
+        #res = cv.absdiff(imagen, imagen2)
+        #print("\dif:",res)
 
         #--- convert the result to integer type ---
         #res = res.astype(np.uint8)
