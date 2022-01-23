@@ -83,10 +83,7 @@ def compare():
         print("fileA ",fileA.filename)
         print("fileB ",fileB.filename)
 
-        img1 = cv.imread(filename, 0)
-        img2 = cv.imread(filename2, 0)
-        print("\IMG :",img1)
-        print("\IMG2 :",img2)
+       
 
         image_to_predict = image.load_img(filename, target_size=(224, 224))
         test_image = image.img_to_array(image_to_predict)
@@ -97,7 +94,10 @@ def compare():
         test_image2 = np.expand_dims(test_image2, axis = 0)
 
         res = cv.absdiff(test_image, test_image2)
-        print("\ res :",res)
+        #print("\ res :",res)
+
+        s = ssim(test_image, test_image2)
+        print("\ ssim :",s)
 
         res = res.astype(np.uint8)
         percentage = (np.count_nonzero(res) * 100)/ res.size
