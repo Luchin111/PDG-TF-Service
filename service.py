@@ -3,7 +3,6 @@
 
 import pandas as pd
 import cv2  as cv
-import image_similarity_measures
 from image_similarity_measures.quality_metrics import rmse, ssim, sre
 from skimage import io
 from PIL import Image 
@@ -97,7 +96,9 @@ def compare():
         res = cv.absdiff(test_image, test_image2)
         #print("\ res :",res)
         res2=sre(test_image, test_image2)
+        res3=ssim(test_image, test_image2)
         print("\ res sre :",res2)
+        print("\ res ssim :",res3)
 
         res = res.astype(np.uint8)
         percentage = (np.count_nonzero(res) * 100)/ res.size
