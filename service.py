@@ -86,8 +86,8 @@ def compare():
 
         original = cv.imread("1.png")
         new = cv.imread("2.png")
-        original = imutils.resize(filename, height = 600)
-        new = imutils.resize(filename2, height = 600)
+        original = imutiimls.resize(filename, height = 600)
+        new = imutiimls.resize(filename2, height = 600)
 
         diff = original.copy()
         res = cv.absdiff(original, new, diff)
