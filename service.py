@@ -96,9 +96,9 @@ def compare():
         res = cv.absdiff(test_image, test_image2)
         #print("\ res :",res)
         res2=sre(test_image, test_image2)
-        res3=ssim(test_image, test_image2)
+        #res3=ssim(test_image, test_image2)
         print("\ res sre :",res2)
-        print("\ res ssim :",res3)
+        #print("\ res ssim :",res3)
 
         res = res.astype(np.uint8)
         percentage = (np.count_nonzero(res) * 100)/ res.size
