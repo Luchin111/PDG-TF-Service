@@ -109,7 +109,10 @@ def compare():
         print("\ percentage prom :",a)
 
         data["compare"] = []
-        r = {"label": "Diferencia", "score": float(percentage)}
+        r = {"label": "Diferencia", 
+            "dif": float(percentage),
+            "dif_prom": float(a)}
+        
         data["compare"].append(r)
 
         #Success
