@@ -105,7 +105,7 @@ def compare():
         percentage = (np.count_nonzero(res) * 100)/ res.size
         print("\ percentage :",percentage)
 
-        a=(percentage+res2)/2
+        a=(percentage+res2+res3)/2
         print("\ percentage prom :",a)
 
         data["compare"] = []
