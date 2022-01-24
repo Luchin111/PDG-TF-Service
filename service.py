@@ -96,7 +96,9 @@ def compare():
 
         res = cv.absdiff(test_image, test_image2)
         #print("\ res :",res)
+        #Proporción de señal a error de reconstrucción
         res2=sre(test_image, test_image2)
+        #Distancia media cuadrática mínima
         res3=rmse(test_image, test_image2)
         print("\ res sre :",res2)
         print("\ res rmse :",res3)
@@ -156,7 +158,7 @@ def default():
             	# print(result)
             	
 		    # Resultados
-            	prediction = 1 if (result >= 0.6) else 0
+            	prediction = 1 if (result >= 0.65) else 0
             	CLASSES = ['Normal', 'Con Cancer']
 
             	ClassPred = CLASSES[prediction]
