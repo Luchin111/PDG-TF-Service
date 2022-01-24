@@ -50,6 +50,7 @@ def main_page():
 @app.route('/model/compare/', methods=['GET','POST'])
 @cross_origin()
 def compare():
+    data = {"success": False}
     if request.method == "POST":
 	# Create a list to store the urls of the images
                 # check if the post request has the file part
@@ -96,15 +97,24 @@ def compare():
         res = cv.absdiff(test_image, test_image2)
         #print("\ res :",res)
         res2=sre(test_image, test_image2)
-        #res3=ssim(test_image, test_image2)
         print("\ res sre :",res2)
-        #print("\ res ssim :",res3)
 
         res = res.astype(np.uint8)
         percentage = (np.count_nonzero(res) * 100)/ res.size
         print("\ percentage :",percentage)
 
-    return 'ok '
+        a=(percentage+res)/2
+        print("\ percentage prom :",a)
+
+        data["compare"] = []
+        r = {"label": "Diferencia", "score": float(percentage)}
+        data["compare"].append(r)
+
+        #Success
+        data["success"] = True
+        
+
+    return jsonify(data)
 
 
 @app.route('/model/cancer/', methods=['GET','POST'])
