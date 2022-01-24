@@ -158,8 +158,8 @@ def default():
             	# print(result)
             	
 		    # Resultados
-            	prediction = 1 if (result >= 0.65) else 0
-            	CLASSES = ['Normal', 'Con Cancer']
+            	prediction = 1 if (result >= 0.69) else 0
+            	CLASSES = ['Normal', 'Cancer']
 
             	ClassPred = CLASSES[prediction]
             	ClassProb = result
