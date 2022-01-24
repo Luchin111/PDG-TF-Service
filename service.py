@@ -105,12 +105,15 @@ def compare():
         percentage = (np.count_nonzero(res) * 100)/ res.size
         print("\ percentage :",percentage)
 
-        a=(percentage+res2+res3)/2
+        a=(percentage+res2+res3)/3
+        b=(percentage+res2+res3)/3
         print("\ percentage prom :",a)
 
         data["compare"] = []
         r = {"label": "Diferencia", 
             "dif": float(percentage),
+            "dif sre": float(res2),
+            "dif rmse": float(res3),
             "dif_prom": float(a)}
         
         data["compare"].append(r)
